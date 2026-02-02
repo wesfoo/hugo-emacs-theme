@@ -20,7 +20,7 @@ A Hugo theme that transforms your blog into an Emacs-like experience with buffer
 
 ```bash
 cd your-hugo-site
-git clone https://github.com/yourusername/hugo-emacs-theme themes/emacs
+git submodule add https://github.com/ArthurHeymans/hugo-emacs-theme themes/emacs
 ```
 
 2. Update your `config.toml`:
