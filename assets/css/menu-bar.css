@@ -1,0 +1,248 @@
+/* Menu Bar CSS - Emacs Menu Bar Styling
+ * Emacs Blog Theme
+ */
+
+/* ============================================
+   MENU BAR
+   ============================================ */
+.menu-bar {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background-color: var(--menu-bg);
+  border-bottom: 1px solid var(--menu-border);
+  padding: 0;
+  font-size: 0.9rem;
+  user-select: none;
+  position: relative;
+  z-index: 100;
+  flex-wrap: nowrap;
+}
+
+/* Menu items container */
+.menu-items {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  flex-wrap: nowrap;
+}
+
+/* ============================================
+   MENU ITEMS
+   ============================================ */
+.menu-item {
+  position: relative;
+  display: inline-block;
+}
+
+.menu-item > button {
+  display: flex;
+  align-items: center;
+  padding: 0.4em 0.8em;
+  background: none;
+  border: none;
+  color: var(--menu-fg);
+  font-family: inherit;
+  font-size: inherit;
+  cursor: pointer;
+  transition: background-color 0.1s ease;
+}
+
+.menu-item > button:hover,
+.menu-item.open > button {
+  background-color: var(--menu-hover-bg);
+}
+
+.menu-item.open > button {
+  background-color: var(--menu-active-bg);
+}
+
+/* Underline for keyboard shortcut hint */
+.menu-item > button .underline {
+  text-decoration: underline;
+}
+
+/* ============================================
+   DROPDOWN MENUS
+   ============================================ */
+.menu-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  min-width: 200px;
+  background-color: var(--menu-bg);
+  border: 1px solid var(--menu-border);
+  box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
+  display: none;
+  z-index: 1000;
+}
+
+.menu-item.open .menu-dropdown {
+  display: block;
+}
+
+/* Dropdown items */
+.menu-dropdown-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.4em 1em;
+  color: var(--menu-fg);
+  cursor: pointer;
+  transition: background-color 0.1s ease;
+}
+
+.menu-dropdown-item:hover {
+  background-color: var(--menu-hover-bg);
+}
+
+.menu-dropdown-item.disabled {
+  color: var(--fg-dim);
+  cursor: not-allowed;
+}
+
+.menu-dropdown-item.disabled:hover {
+  background-color: transparent;
+}
+
+/* Keyboard shortcut display */
+.menu-shortcut {
+  color: var(--fg-dim);
+  font-size: 0.85em;
+  margin-left: 2em;
+}
+
+/* Separator */
+.menu-separator {
+  height: 1px;
+  background-color: var(--menu-border);
+  margin: 0.25em 0;
+}
+
+/* Checkbox/Radio items */
+.menu-dropdown-item.checked::before {
+  content: "✓";
+  margin-right: 0.5em;
+  color: var(--green);
+}
+
+.menu-dropdown-item.radio.checked::before {
+  content: "●";
+}
+
+/* Submenu indicator */
+.menu-dropdown-item.has-submenu::after {
+  content: "▸";
+  margin-left: auto;
+  padding-left: 1em;
+}
+
+/* ============================================
+   RIGHT SIDE OF MENU BAR
+   ============================================ */
+.menu-bar-right {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  padding-right: 0.5em;
+}
+
+/* Theme toggle button */
+.theme-toggle {
+  display: flex;
+  align-items: center;
+  padding: 0.3em 0.6em;
+  background: none;
+  border: 1px solid var(--border-dim);
+  border-radius: 3px;
+  color: var(--fg-dim);
+  font-family: inherit;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.theme-toggle:hover {
+  background-color: var(--menu-hover-bg);
+  color: var(--fg-main);
+  border-color: var(--border);
+}
+
+.theme-toggle .icon {
+  margin-right: 0.3em;
+}
+
+/* Site title in menu bar */
+.menu-bar-title {
+  color: var(--fg-dim);
+  font-size: 0.85rem;
+  padding: 0 1em;
+}
+
+/* ============================================
+   MOBILE HAMBURGER
+   ============================================ */
+.menu-hamburger {
+  display: none;
+  padding: 0.5em;
+  background: none;
+  border: none;
+  color: var(--menu-fg);
+  cursor: pointer;
+  font-size: 1.2rem;
+}
+
+.menu-hamburger:hover {
+  background-color: var(--menu-hover-bg);
+}
+
+/* ============================================
+   LINK ITEMS (Direct navigation)
+   ============================================ */
+.menu-link {
+  display: flex;
+  align-items: center;
+  padding: 0.4em 0.8em;
+  color: var(--menu-fg);
+  text-decoration: none;
+  transition: background-color 0.1s ease;
+}
+
+.menu-link:hover {
+  background-color: var(--menu-hover-bg);
+  text-decoration: none;
+}
+
+.menu-link:visited {
+  color: var(--menu-fg);
+}
+
+/* ============================================
+   SEARCH IN MENU BAR
+   ============================================ */
+.menu-search {
+  display: flex;
+  align-items: center;
+  margin-right: 0.5em;
+}
+
+.menu-search input {
+  padding: 0.25em 0.5em;
+  background-color: var(--bg-main);
+  border: 1px solid var(--border-dim);
+  color: var(--fg-main);
+  font-family: inherit;
+  font-size: 0.85rem;
+  width: 150px;
+  transition: all 0.15s ease;
+}
+
+.menu-search input:focus {
+  outline: none;
+  border-color: var(--blue);
+  width: 200px;
+}
+
+.menu-search input::placeholder {
+  color: var(--fg-dim);
+}

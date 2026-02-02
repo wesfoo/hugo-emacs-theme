@@ -1,0 +1,253 @@
+/* Modeline CSS - Emacs Modeline Styling
+ * Emacs Blog Theme
+ */
+
+/* ============================================
+   MODELINE BASE
+   ============================================ */
+.modeline {
+  display: flex;
+  align-items: center;
+  padding: 0.15em 0.5em;
+  background-color: var(--modeline-bg);
+  color: var(--modeline-fg);
+  font-size: 0.85rem;
+  border-top: 1px solid var(--modeline-border);
+  white-space: nowrap;
+  overflow: hidden;
+  min-height: 1.8em;
+  user-select: none;
+  flex-shrink: 0; /* Don't shrink - stay visible */
+}
+
+/* Inactive modeline (for split view if ever used) */
+.window:not(.focused) .modeline,
+.buffer:not(.active) .modeline {
+  background-color: var(--modeline-bg-inactive);
+  color: var(--modeline-fg-inactive);
+}
+
+/* ============================================
+   MODELINE SEGMENTS
+   ============================================ */
+.modeline-segment {
+  display: flex;
+  align-items: center;
+  margin-right: 0.75em;
+}
+
+.modeline-segment:last-child {
+  margin-right: 0;
+}
+
+/* Spacer pushes right-aligned content */
+.modeline-spacer {
+  flex: 1;
+}
+
+/* ============================================
+   SPECIFIC SEGMENTS
+   ============================================ */
+
+/* Encoding indicator (U for UTF-8) */
+.modeline-encoding {
+  color: var(--fg-dim);
+}
+
+/* Line ending indicator */
+.modeline-eol {
+  color: var(--fg-dim);
+}
+
+/* Read-only indicator */
+.modeline-readonly {
+  color: var(--yellow);
+}
+
+.modeline-readonly::before {
+  content: "%%";
+}
+
+/* Modified indicator */
+.modeline-modified {
+  color: var(--red);
+}
+
+.modeline-modified::before {
+  content: "**";
+}
+
+/* Saved indicator */
+.modeline-saved::before {
+  content: "--";
+  color: var(--fg-dim);
+}
+
+/* Buffer name */
+.modeline-buffer-name {
+  font-weight: bold;
+  color: var(--modeline-fg);
+  max-width: 200px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.window:not(.focused) .modeline-buffer-name {
+  color: var(--modeline-fg-inactive);
+}
+
+/* Position indicator */
+.modeline-position {
+  color: var(--fg-dim);
+}
+
+.modeline-position .current {
+  color: var(--modeline-fg);
+}
+
+/* Scroll position (All, Top, Bot, or percentage) */
+.modeline-scroll {
+  min-width: 3em;
+  text-align: center;
+}
+
+/* Line/Column */
+.modeline-line-col {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Major mode */
+.modeline-mode {
+  color: var(--cyan);
+}
+
+.modeline-mode::before {
+  content: "(";
+  color: var(--fg-dim);
+}
+
+.modeline-mode::after {
+  content: ")";
+  color: var(--fg-dim);
+}
+
+/* Minor modes */
+.modeline-minor-modes {
+  color: var(--fg-dim);
+  font-size: 0.8rem;
+}
+
+/* Keyboard hint in modeline */
+.modeline-keyhint {
+  color: var(--fg-dim);
+  font-size: 0.8rem;
+}
+
+.modeline-keyhint kbd {
+  background-color: var(--bg-dim);
+  padding: 0 0.3em;
+  border-radius: 2px;
+  margin: 0 0.15em;
+}
+
+/* ============================================
+   MODELINE DECORATIONS
+   ============================================ */
+
+/* The classic dashes */
+.modeline-fill {
+  flex: 1;
+  overflow: hidden;
+  color: var(--fg-dim);
+  letter-spacing: -1px;
+}
+
+.modeline-fill::after {
+  content: "────────────────────────────────────────────────────────────────────────────────────────────────────";
+}
+
+/* Column indicator line */
+.modeline-col-indicator {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 2px;
+  background-color: var(--blue);
+  transition: width 0.1s ease;
+}
+
+/* ============================================
+   EMACS-STYLE DETAILED MODELINE
+   ============================================ */
+.modeline-emacs-style {
+  font-family: inherit;
+  letter-spacing: 0;
+}
+
+/* Format: -UUU:**--F1  buffername    All L1    (Mode)---------- */
+.modeline-emacs-style .ml-left {
+  display: flex;
+  align-items: center;
+}
+
+.modeline-emacs-style .ml-center {
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.modeline-emacs-style .ml-right {
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+}
+
+/* The classic leading dash */
+.ml-dash {
+  color: var(--fg-dim);
+}
+
+/* Encoding triplet like UUU or U-- */
+.ml-encoding-triplet {
+  color: var(--fg-dim);
+}
+
+/* Colon separator */
+.ml-colon {
+  color: var(--fg-dim);
+}
+
+/* Status indicators (**, %%, --) */
+.ml-status {
+  min-width: 2ch;
+}
+
+.ml-status.modified {
+  color: var(--red);
+}
+
+.ml-status.readonly {
+  color: var(--yellow);
+}
+
+/* Frame indicator F1 */
+.ml-frame {
+  color: var(--fg-dim);
+}
+
+/* Extra space */
+.ml-space {
+  width: 1em;
+}
+
+/* Percentage or All/Top/Bot */
+.ml-percentage {
+  min-width: 3ch;
+  text-align: right;
+}
+
+/* Line number with L prefix */
+.ml-line {
+  font-variant-numeric: tabular-nums;
+}

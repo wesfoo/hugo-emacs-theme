@@ -1,0 +1,45 @@
+{{ define "buffer-tabs" }}
+<button class="buffer-tab active" role="tab" aria-selected="true" data-buffer="error">
+  *Messages*
+</button>
+{{ end }}
+
+{{ define "main" }}
+<section class="window content-window focused" 
+         id="content-window" 
+         role="region" 
+         aria-label="Error"
+         tabindex="0"
+         style="flex: 1;">
+  <div class="window-body">
+    <div class="welcome-message">
+      <h2 style="color: var(--red);">File not found</h2>
+      <br>
+      <pre style="text-align: left; background: var(--code-bg); padding: 1em; color: var(--fg-dim);">
+Debugger entered--Lisp error: (file-missing "Opening file" "No such file or directory" "{{ .RelPermalink }}")
+  find-file-noselect("{{ .RelPermalink }}" nil nil nil)
+  find-file("{{ .RelPermalink }}")
+  ...
+      </pre>
+      <br>
+      <p>The page you're looking for doesn't exist.</p>
+      <br>
+      <p>
+        <a href="{{ "/" | relURL }}" style="color: var(--link);">
+          &larr; Return to homepage
+        </a>
+      </p>
+      <br>
+      <p style="color: var(--fg-dim); font-size: 0.85rem;">
+        Press <kbd>g</kbd> <kbd>h</kbd> to go home
+      </p>
+    </div>
+  </div>
+  
+  {{ partial "modeline.html" (dict 
+    "buffer" "*Messages*"
+    "mode" "Fundamental"
+    "readonly" true
+  ) }}
+</section>
+{{ end }}

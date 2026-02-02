@@ -1,0 +1,260 @@
+/* Windows CSS - Emacs Buffer/Window Styling
+ * Emacs Blog Theme - Single Buffer View
+ */
+
+/* ============================================
+   BUFFER CONTAINER
+   ============================================ */
+.buffer-container {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  overflow: hidden;
+  position: relative;
+  min-height: 0; /* Important for flex scroll */
+}
+
+/* ============================================
+   BUFFER (Full-screen buffer view)
+   ============================================ */
+.buffer {
+  display: none; /* Hidden by default */
+  flex-direction: column;
+  flex: 1;
+  overflow: hidden;
+  min-height: 0;
+}
+
+.buffer.active {
+  display: flex;
+}
+
+/* ============================================
+   BUFFER BODY (Scrollable content area)
+   ============================================ */
+.buffer-body {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  background-color: var(--bg-main);
+  min-height: 0; /* Important for flex scroll */
+}
+
+/* ============================================
+   ARTICLE LIST (Dired-style)
+   ============================================ */
+.article-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.article-item {
+  display: flex;
+  align-items: baseline;
+  padding: 0.35em 0.75em;
+  cursor: pointer;
+  font-size: 0.9rem;
+  border-left: 2px solid transparent;
+  transition: background-color 0.1s ease;
+}
+
+.article-item:hover {
+  background-color: var(--list-hover-bg);
+}
+
+.article-item.selected {
+  background-color: var(--list-selected-bg);
+  color: var(--list-selected-fg);
+  border-left-color: var(--blue);
+}
+
+.article-item.selected .article-meta {
+  color: var(--fg-alt);
+}
+
+/* Dired-style columns */
+.article-marker {
+  width: 1.5em;
+  text-align: center;
+  color: var(--fg-dim);
+  flex-shrink: 0;
+}
+
+.article-item.selected .article-marker {
+  color: var(--green);
+}
+
+.article-meta {
+  display: flex;
+  gap: 1em;
+  color: var(--fg-dim);
+  font-size: 0.85rem;
+  flex-shrink: 0;
+  margin-right: 1em;
+}
+
+.article-reading-time {
+  width: 4em;
+  text-align: right;
+}
+
+.article-word-count {
+  width: 4em;
+  text-align: right;
+}
+
+.article-date {
+  width: 7em;
+}
+
+.article-title {
+  flex: 1;
+  white-space: normal;
+  word-wrap: break-word;
+}
+
+/* Tags in list */
+.article-tags {
+  display: none;
+  font-size: 0.8rem;
+  color: var(--cyan);
+  margin-left: 0.5em;
+}
+
+.article-item:hover .article-tags,
+.article-item.selected .article-tags {
+  display: inline;
+}
+
+/* ============================================
+   CONTENT BUFFER
+   ============================================ */
+.post-content {
+  max-width: 80ch;
+  padding: 1em 2em;
+  margin: 0 auto;
+}
+
+.post-header {
+  margin-bottom: 2em;
+  padding-bottom: 1em;
+  border-bottom: 1px solid var(--border-dim);
+}
+
+.post-title {
+  font-size: 1.5rem;
+  color: var(--magenta);
+  margin-bottom: 0.5em;
+  margin-top: 0;
+}
+
+.post-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1em;
+  font-size: 0.9rem;
+  color: var(--fg-dim);
+}
+
+.post-date {
+  color: var(--yellow);
+}
+
+.post-reading-time {
+  color: var(--cyan);
+}
+
+.post-tags {
+  display: flex;
+  gap: 0.5em;
+  flex-wrap: wrap;
+}
+
+.post-tag {
+  color: var(--blue);
+}
+
+.post-tag::before {
+  content: "#";
+  color: var(--fg-dim);
+}
+
+/* Table of contents */
+.table-of-contents {
+  background-color: var(--bg-dim);
+  border: 1px solid var(--border-dim);
+  padding: 1em;
+  margin: 1em 0;
+}
+
+.table-of-contents h2 {
+  font-size: 1rem;
+  margin-top: 0;
+  margin-bottom: 0.5em;
+  color: var(--fg-main);
+}
+
+.table-of-contents nav ul {
+  margin: 0;
+  padding-left: 1.5em;
+}
+
+.table-of-contents nav li {
+  margin-bottom: 0.25em;
+}
+
+/* ============================================
+   POST BODY STYLING
+   ============================================ */
+.post-body {
+  line-height: 1.7;
+}
+
+.post-body p {
+  margin-bottom: 1em;
+}
+
+.post-body h2 {
+  margin-top: 2em;
+}
+
+.post-body h3 {
+  margin-top: 1.5em;
+}
+
+.post-body ul, 
+.post-body ol {
+  margin-bottom: 1em;
+}
+
+.post-body pre {
+  margin: 1em 0;
+}
+
+.post-body blockquote {
+  margin: 1em 0;
+}
+
+.post-body img {
+  display: block;
+  margin: 1em auto;
+  max-width: 100%;
+}
+
+/* ============================================
+   RESPONSIVE (Mobile)
+   ============================================ */
+@media (max-width: 768px) {
+  .article-meta {
+    display: none;
+  }
+  
+  .article-item {
+    padding: 0.5em 0.75em;
+  }
+  
+  .post-content {
+    padding: 1em;
+  }
+}

@@ -1,0 +1,257 @@
+/* Main CSS - Core Layout & Frame
+ * Emacs Blog Theme
+ */
+
+/* ============================================
+   FONTS
+   ============================================ */
+@font-face {
+  font-family: 'Fira Code';
+  src: url('/fonts/FiraCode-Regular.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Fira Code';
+  src: url('/fonts/FiraCode-Bold.woff') format('woff');
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ============================================
+   CSS RESET & BASE
+   ============================================ */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: 'Fira Code', 'Consolas', 'Monaco', 'Andale Mono', 'Ubuntu Mono', monospace;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  background-color: var(--bg-main);
+  color: var(--fg-main);
+  min-height: 100vh;
+  overflow: hidden;
+}
+
+/* ============================================
+   EMACS FRAME
+   ============================================ */
+.emacs-frame {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  height: 100dvh; /* Dynamic viewport height for mobile */
+  width: 100vw;
+  overflow: hidden;
+}
+
+/* Buffer container fills remaining space */
+.buffer-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  overflow: hidden;
+}
+
+/* ============================================
+   SCROLLBAR STYLING
+   ============================================ */
+::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--scrollbar-bg);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--scrollbar-thumb);
+  border-radius: 0;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--scrollbar-thumb-hover);
+}
+
+/* Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-bg);
+}
+
+/* ============================================
+   SELECTION
+   ============================================ */
+::selection {
+  background-color: var(--selection-bg);
+  color: var(--selection-fg);
+}
+
+/* ============================================
+   LINKS
+   ============================================ */
+a {
+  color: var(--link);
+  text-decoration: none;
+}
+
+a:visited {
+  color: var(--link-visited);
+}
+
+a:hover {
+  color: var(--link-hover);
+  text-decoration: underline;
+}
+
+/* ============================================
+   TYPOGRAPHY
+   ============================================ */
+h1, h2, h3, h4, h5, h6 {
+  font-weight: bold;
+  margin-top: 1.5em;
+  margin-bottom: 0.5em;
+  line-height: 1.3;
+}
+
+h1 { font-size: 1.5rem; color: var(--magenta); }
+h2 { font-size: 1.3rem; color: var(--blue); }
+h3 { font-size: 1.15rem; color: var(--cyan); }
+h4 { font-size: 1.05rem; color: var(--green); }
+h5, h6 { font-size: 1rem; color: var(--yellow); }
+
+/* Emacs-style org headers with * prefix */
+.org-h1::before { content: "* "; color: var(--fg-dim); }
+.org-h2::before { content: "** "; color: var(--fg-dim); }
+.org-h3::before { content: "*** "; color: var(--fg-dim); }
+.org-h4::before { content: "**** "; color: var(--fg-dim); }
+
+p {
+  margin-bottom: 1em;
+}
+
+blockquote {
+  border-left: 3px solid var(--border);
+  padding-left: 1em;
+  margin: 1em 0;
+  color: var(--fg-dim);
+  font-style: italic;
+}
+
+ul, ol {
+  margin: 1em 0;
+  padding-left: 2em;
+}
+
+li {
+  margin-bottom: 0.25em;
+}
+
+code {
+  font-family: 'Fira Code', monospace;
+  background-color: var(--code-bg);
+  padding: 0.1em 0.3em;
+  border-radius: 2px;
+  font-size: 0.9em;
+}
+
+pre {
+  background-color: var(--code-bg);
+  border: 1px solid var(--code-border);
+  padding: 1em;
+  overflow-x: auto;
+  margin: 1em 0;
+  line-height: 1.4;
+}
+
+pre code {
+  background: none;
+  padding: 0;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+video {
+  max-width: 100%;
+  height: auto;
+}
+
+hr {
+  border: none;
+  border-top: 1px solid var(--border);
+  margin: 2em 0;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 1em 0;
+}
+
+th, td {
+  border: 1px solid var(--border);
+  padding: 0.5em 1em;
+  text-align: left;
+}
+
+th {
+  background-color: var(--bg-dim);
+}
+
+/* ============================================
+   UTILITY CLASSES
+   ============================================ */
+.hidden {
+  display: none !important;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+
+.truncate {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Focus styles for keyboard navigation */
+.focus-visible {
+  outline: 2px solid var(--blue);
+  outline-offset: 2px;
+}
+
+button:focus-visible,
+a:focus-visible,
+[tabindex]:focus-visible {
+  outline: 2px solid var(--blue);
+  outline-offset: 2px;
+}

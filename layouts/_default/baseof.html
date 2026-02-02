@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="{{ .Site.Language.Lang }}" data-theme="dark">
+<head>
+  {{- partial "head.html" . -}}
+</head>
+<body>
+  <div class="emacs-frame">
+    {{- partial "menu-bar.html" . -}}
+    
+    <main class="buffer-container" id="buffer-container">
+      {{- block "main" . }}
+      {{- end }}
+    </main>
+    
+    {{- partial "echo-area.html" . -}}
+  </div>
+  
+  {{- partial "help-overlay.html" . -}}
+  
+  {{- $keyboard := resources.Get "js/keyboard.js" | minify -}}
+  {{- $windows := resources.Get "js/windows.js" | minify -}}
+  {{- $menu := resources.Get "js/menu.js" | minify -}}
+  <script src="{{ $keyboard.RelPermalink }}"></script>
+  <script src="{{ $windows.RelPermalink }}"></script>
+  <script src="{{ $menu.RelPermalink }}"></script>
+</body>
+</html>

@@ -1,0 +1,233 @@
+/* Modus Themes for Emacs Blog
+ * Based on Protesilaos Stavrou's Modus themes (Emacs 28+ built-in)
+ * https://protesilaos.com/emacs/modus-themes
+ */
+
+/* ============================================
+   MODUS VIVENDI (Dark Theme) - Default
+   ============================================ */
+:root,
+[data-theme="dark"] {
+  /* Background colors */
+  --bg-main: #000000;
+  --bg-dim: #1e1e1e;
+  --bg-alt: #181a20;
+  --bg-active: #323232;
+  --bg-inactive: #1a1a1a;
+  --bg-hover: #2a2a2a;
+  --bg-region: #3c3c3c;
+  --bg-hl-line: #151823;
+  
+  /* Foreground colors */
+  --fg-main: #ffffff;
+  --fg-dim: #989898;
+  --fg-alt: #c6c6c6;
+  --fg-unfocused: #93959b;
+  
+  /* Border colors */
+  --border: #646464;
+  --border-highlight: #7a7a7a;
+  --border-dim: #454545;
+  
+  /* Cursor */
+  --cursor: #ffffff;
+  --cursor-bg: #feacd0;
+  
+  /* Accent colors - Basic */
+  --red: #ff5f59;
+  --red-warmer: #ff6b55;
+  --red-cooler: #ff7f9f;
+  --red-faint: #ff9580;
+  --green: #44bc44;
+  --green-warmer: #70b900;
+  --green-cooler: #00c06f;
+  --green-faint: #88ca9f;
+  --yellow: #d0bc00;
+  --yellow-warmer: #fec43f;
+  --yellow-cooler: #dfaf7a;
+  --yellow-faint: #d2b580;
+  --blue: #2fafff;
+  --blue-warmer: #79a8ff;
+  --blue-cooler: #00bcff;
+  --blue-faint: #82b0ec;
+  --magenta: #feacd0;
+  --magenta-warmer: #f78fe7;
+  --magenta-cooler: #b6a0ff;
+  --magenta-faint: #caa6df;
+  --cyan: #00d3d0;
+  --cyan-warmer: #4ae2f0;
+  --cyan-cooler: #6ae4b9;
+  --cyan-faint: #9ac8e0;
+  
+  /* Modeline colors */
+  --modeline-bg: #505050;
+  --modeline-fg: #ffffff;
+  --modeline-bg-inactive: #2d2d2d;
+  --modeline-fg-inactive: #969696;
+  --modeline-border: #626262;
+  
+  /* Menu bar */
+  --menu-bg: #1e1e1e;
+  --menu-fg: #ffffff;
+  --menu-border: #454545;
+  --menu-hover-bg: #3c3c3c;
+  --menu-active-bg: #505050;
+  
+  /* Echo area */
+  --echo-bg: #000000;
+  --echo-fg: #989898;
+  
+  /* Fringe */
+  --fringe-bg: #151515;
+  --fringe-fg: #646464;
+  
+  /* Links */
+  --link: #79a8ff;
+  --link-visited: #b6a0ff;
+  --link-hover: #00bcff;
+  
+  /* Syntax highlighting */
+  --syntax-keyword: #b6a0ff;
+  --syntax-builtin: #feacd0;
+  --syntax-string: #79a8ff;
+  --syntax-comment: #989898;
+  --syntax-function: #feacd0;
+  --syntax-variable: #00d3d0;
+  --syntax-constant: #44bc44;
+  --syntax-type: #6ae4b9;
+  --syntax-number: #2fafff;
+  --syntax-operator: #ffffff;
+  --syntax-preprocessor: #ff9580;
+  
+  /* Code blocks */
+  --code-bg: #0d0e1c;
+  --code-border: #323232;
+  
+  /* Selection */
+  --selection-bg: #3c3c3c;
+  --selection-fg: inherit;
+  
+  /* Scrollbar */
+  --scrollbar-bg: #1e1e1e;
+  --scrollbar-thumb: #454545;
+  --scrollbar-thumb-hover: #646464;
+  
+  /* Article list */
+  --list-selected-bg: #2f3f5f;
+  --list-selected-fg: #ffffff;
+  --list-hover-bg: #252525;
+}
+
+/* ============================================
+   MODUS OPERANDI (Light Theme)
+   ============================================ */
+[data-theme="light"] {
+  /* Background colors */
+  --bg-main: #ffffff;
+  --bg-dim: #f2f2f2;
+  --bg-alt: #f0f0f0;
+  --bg-active: #d7d7d7;
+  --bg-inactive: #e8e8e8;
+  --bg-hover: #e0e0e0;
+  --bg-region: #c4c4c4;
+  --bg-hl-line: #dae5ec;
+  
+  /* Foreground colors */
+  --fg-main: #000000;
+  --fg-dim: #595959;
+  --fg-alt: #193668;
+  --fg-unfocused: #70627f;
+  
+  /* Border colors */
+  --border: #9f9f9f;
+  --border-highlight: #7a7a7a;
+  --border-dim: #c8c8c8;
+  
+  /* Cursor */
+  --cursor: #000000;
+  --cursor-bg: #a60000;
+  
+  /* Accent colors - Basic */
+  --red: #a60000;
+  --red-warmer: #972500;
+  --red-cooler: #a0132f;
+  --red-faint: #7f0000;
+  --green: #006800;
+  --green-warmer: #316500;
+  --green-cooler: #00663f;
+  --green-faint: #2a5045;
+  --yellow: #6f5500;
+  --yellow-warmer: #884900;
+  --yellow-cooler: #7a4f2f;
+  --yellow-faint: #624416;
+  --blue: #0031a9;
+  --blue-warmer: #354fcf;
+  --blue-cooler: #0000b0;
+  --blue-faint: #003497;
+  --magenta: #721045;
+  --magenta-warmer: #8f0075;
+  --magenta-cooler: #531ab6;
+  --magenta-faint: #7c318f;
+  --cyan: #005e8b;
+  --cyan-warmer: #3f578f;
+  --cyan-cooler: #005f5f;
+  --cyan-faint: #005077;
+  
+  /* Modeline colors */
+  --modeline-bg: #c8c8c8;
+  --modeline-fg: #000000;
+  --modeline-bg-inactive: #e6e6e6;
+  --modeline-fg-inactive: #585858;
+  --modeline-border: #a3a3a3;
+  
+  /* Menu bar */
+  --menu-bg: #f0f0f0;
+  --menu-fg: #000000;
+  --menu-border: #c8c8c8;
+  --menu-hover-bg: #d7d7d7;
+  --menu-active-bg: #c8c8c8;
+  
+  /* Echo area */
+  --echo-bg: #ffffff;
+  --echo-fg: #595959;
+  
+  /* Fringe */
+  --fringe-bg: #f2f2f2;
+  --fringe-fg: #9f9f9f;
+  
+  /* Links */
+  --link: #0031a9;
+  --link-visited: #531ab6;
+  --link-hover: #0000b0;
+  
+  /* Syntax highlighting */
+  --syntax-keyword: #531ab6;
+  --syntax-builtin: #8f0075;
+  --syntax-string: #0031a9;
+  --syntax-comment: #595959;
+  --syntax-function: #721045;
+  --syntax-variable: #005e8b;
+  --syntax-constant: #006800;
+  --syntax-type: #005f5f;
+  --syntax-number: #0000b0;
+  --syntax-operator: #000000;
+  --syntax-preprocessor: #a0132f;
+  
+  /* Code blocks */
+  --code-bg: #f8f8f8;
+  --code-border: #d7d7d7;
+  
+  /* Selection */
+  --selection-bg: #c4c4c4;
+  --selection-fg: inherit;
+  
+  /* Scrollbar */
+  --scrollbar-bg: #f0f0f0;
+  --scrollbar-thumb: #c8c8c8;
+  --scrollbar-thumb-hover: #9f9f9f;
+  
+  /* Article list */
+  --list-selected-bg: #c0deff;
+  --list-selected-fg: #000000;
+  --list-hover-bg: #e8e8e8;
+}

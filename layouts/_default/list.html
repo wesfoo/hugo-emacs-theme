@@ -1,0 +1,122 @@
+{{ define "main" }}
+{{- /* List Page - Full-screen buffer view */ -}}
+
+{{- /* Buffer: Article List (Dired-style) */ -}}
+<section class="buffer buffer-list active" 
+         id="buffer-list" 
+         role="region" 
+         aria-label="{{ .Title }} list"
+         tabindex="0">
+  <div class="buffer-body">
+    {{- with .Content }}
+    <div class="list-header" style="padding: 0.75em; border-bottom: 1px solid var(--border-dim);">
+      {{ . }}
+    </div>
+    {{- end }}
+    
+    <ul class="article-list" id="article-list" role="listbox" aria-label="{{ .Title }}">
+      {{- $pages := .Pages -}}
+      {{- if .IsHome -}}
+        {{- $pages = where .Site.RegularPages "Section" "post" -}}
+      {{- end -}}
+      {{- range $index, $page := $pages.ByDate.Reverse -}}
+      <li class="article-item{{ if eq $index 0 }} selected{{ end }}" 
+          role="option"
+          aria-selected="{{ if eq $index 0 }}true{{ else }}false{{ end }}"
+          data-index="{{ $index }}"
+          data-url="{{ $page.RelPermalink }}"
+          data-title="{{ $page.Title }}"
+          data-date="{{ $page.Date.Format "2006-01-02" }}"
+          data-reading-time="{{ $page.ReadingTime }}"
+          data-word-count="{{ $page.WordCount }}">
+        <span class="article-marker" aria-hidden="true">{{ if eq $index 0 }}>{{ else }} {{ end }}</span>
+        <span class="article-meta">
+          <span class="article-reading-time" title="Reading time">{{ $page.ReadingTime }}min</span>
+          <span class="article-word-count" title="Word count">{{ $page.WordCount | lang.FormatNumber 0 }}</span>
+          <span class="article-date">{{ $page.Date.Format "2006-01-02" }}</span>
+        </span>
+        <span class="article-title">{{ $page.Title }}</span>
+        {{- with $page.Params.tags }}
+        <span class="article-tags">
+          {{- range first 2 . }}#{{ . }} {{ end -}}
+        </span>
+        {{- end }}
+      </li>
+      {{- else }}
+      <li class="article-item" style="color: var(--fg-dim); padding: 1em;">
+        No articles found.
+      </li>
+      {{- end }}
+    </ul>
+    
+    {{- /* Pagination */ -}}
+    {{- $paginator := .Paginator -}}
+    {{- if gt $paginator.TotalPages 1 }}
+    <nav class="pagination" style="padding: 0.75em; border-top: 1px solid var(--border-dim);">
+      {{- if $paginator.HasPrev }}
+      <a href="{{ $paginator.Prev.URL }}" style="margin-right: 1em;">&larr; Newer</a>
+      {{- end }}
+      <span style="color: var(--fg-dim);">Page {{ $paginator.PageNumber }} of {{ $paginator.TotalPages }}</span>
+      {{- if $paginator.HasNext }}
+      <a href="{{ $paginator.Next.URL }}" style="margin-left: 1em;">Older &rarr;</a>
+      {{- end }}
+    </nav>
+    {{- end }}
+  </div>
+  
+  {{ partial "modeline.html" (dict 
+    "buffer" (printf "*%s*" (.Title | default "list" | lower))
+    "mode" "Dired"
+    "readonly" true
+    "keyhint" "<kbd>n</kbd>/<kbd>p</kbd> nav  <kbd>RET</kbd> open"
+  ) }}
+</section>
+
+{{- /* Buffer: Article content (shown when article is opened) */ -}}
+<section class="buffer buffer-content" 
+         id="buffer-content" 
+         role="region" 
+         aria-label="Article content"
+         tabindex="0">
+  <div class="buffer-body" id="content-body">
+    <article class="post-content" id="article-content">
+    </article>
+  </div>
+  
+  {{ partial "modeline.html" (dict 
+    "buffer" "*article*" 
+    "mode" "Org"
+    "readonly" true
+    "keyhint" "<kbd>n</kbd>/<kbd>p</kbd> articles  <kbd>q</kbd> back"
+  ) }}
+</section>
+
+{{- /* Hidden container with all page content for JS to use */ -}}
+<div id="posts-data" style="display:none;">
+  {{- $pages := .Pages -}}
+  {{- if .IsHome -}}
+    {{- $pages = where .Site.RegularPages "Section" "post" -}}
+  {{- end -}}
+  {{- range $index, $page := $pages.ByDate.Reverse -}}
+  <template data-post-index="{{ $index }}" data-post-url="{{ $page.RelPermalink }}">
+    <div class="post-header">
+      <h1 class="post-title">{{ $page.Title }}</h1>
+      <div class="post-meta">
+        <span class="post-date">{{ $page.Date.Format "2006-01-02" }}</span>
+        <span class="post-reading-time">{{ $page.ReadingTime }} min read ({{ $page.WordCount }} words)</span>
+        {{- with $page.Params.tags }}
+        <div class="post-tags">
+          {{- range . }}
+          <a href="{{ (urlize (printf "tags/%s/" .)) | absLangURL }}" class="post-tag">{{ . }}</a>
+          {{- end }}
+        </div>
+        {{- end }}
+      </div>
+    </div>
+    <div class="post-body">
+      {{ $page.Content }}
+    </div>
+  </template>
+  {{- end }}
+</div>
+{{ end }}

@@ -1,0 +1,78 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+{{- /* Title */ -}}
+<title>{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }} | {{ .Site.Title }}{{ end }}</title>
+
+{{- /* Meta description */ -}}
+{{ with .Description -}}
+<meta name="description" content="{{ . }}">
+{{- else with .Summary -}}
+<meta name="description" content="{{ . | plainify | truncate 160 }}">
+{{- else with .Site.Params.description -}}
+<meta name="description" content="{{ . }}">
+{{- end }}
+
+{{- /* Author */ -}}
+{{ with .Site.Params.author -}}
+<meta name="author" content="{{ . }}">
+{{- end }}
+
+{{- /* Canonical URL */ -}}
+<link rel="canonical" href="{{ .Permalink }}">
+
+{{- /* RSS */ -}}
+{{ range .AlternativeOutputFormats -}}
+{{ printf `<link rel="%s" type="%s" href="%s" title="%s" />` .Rel .MediaType.Type .Permalink $.Site.Title | safeHTML }}
+{{ end -}}
+
+{{- /* Favicon */ -}}
+<link rel="icon" type="image/png" href="{{ "favicon.png" | relURL }}">
+<link rel="apple-touch-icon" href="{{ "apple-touch-icon.png" | relURL }}">
+
+{{- /* Open Graph / Twitter */ -}}
+<meta property="og:title" content="{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }}{{ end }}">
+<meta property="og:description" content="{{ with .Description }}{{ . }}{{ else }}{{ with .Summary }}{{ . | plainify | truncate 160 }}{{ else }}{{ .Site.Params.description }}{{ end }}{{ end }}">
+<meta property="og:type" content="{{ if .IsPage }}article{{ else }}website{{ end }}">
+<meta property="og:url" content="{{ .Permalink }}">
+{{ with .Params.images -}}
+<meta property="og:image" content="{{ index . 0 | absURL }}">
+{{- else with .Site.Params.images -}}
+<meta property="og:image" content="{{ index . 0 | absURL }}">
+{{- end }}
+<meta name="twitter:card" content="summary_large_image">
+
+{{- /* CSS - Combined and minified */ -}}
+{{- $themes := resources.Get "css/themes.css" -}}
+{{- $main := resources.Get "css/main.css" -}}
+{{- $menuBar := resources.Get "css/menu-bar.css" -}}
+{{- $windows := resources.Get "css/windows.css" -}}
+{{- $modeline := resources.Get "css/modeline.css" -}}
+{{- $echoArea := resources.Get "css/echo-area.css" -}}
+{{- $syntax := resources.Get "css/syntax.css" -}}
+{{- $mobile := resources.Get "css/mobile.css" -}}
+
+{{- $allCSS := slice $themes $main $menuBar $windows $modeline $echoArea $syntax $mobile | resources.Concat "css/bundle.css" | minify | fingerprint -}}
+<link rel="stylesheet" href="{{ $allCSS.RelPermalink }}" integrity="{{ $allCSS.Data.Integrity }}">
+
+{{- /* Preload fonts */ -}}
+<link rel="preload" href="/fonts/FiraCode-Regular.woff" as="font" type="font/woff" crossorigin>
+<link rel="preload" href="/fonts/FiraCode-Bold.woff" as="font" type="font/woff" crossorigin>
+
+{{- /* Theme script - run early to prevent flash */ -}}
+<script>
+  (function() {
+    const savedTheme = localStorage.getItem('emacs-theme');
+    if (savedTheme) {
+      document.documentElement.setAttribute('data-theme', savedTheme);
+    } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) {
+      document.documentElement.setAttribute('data-theme', 'light');
+    }
+  })();
+</script>
+
+{{- /* Google Analytics */ -}}
+{{ if hugo.IsProduction -}}
+{{ template "_internal/google_analytics.html" . }}
+{{- end }}

@@ -1,0 +1,47 @@
+{{ define "buffer-tabs" }}
+<button class="buffer-tab active" role="tab" aria-selected="true" data-buffer="list">
+  *{{ .Title | lower }}*
+</button>
+{{ end }}
+
+{{ define "main" }}
+{{- /* Single Window - Taxonomy List */ -}}
+<section class="window list-window focused" 
+         id="list-window" 
+         role="region" 
+         aria-label="{{ .Title }}"
+         tabindex="0"
+         style="flex: 1; max-width: none; border-right: none;">
+  <div class="window-body">
+    <div style="padding: 1em;">
+      <h1 style="margin-top: 0; color: var(--magenta);">{{ .Title }}</h1>
+      
+      <ul class="article-list" id="article-list" role="listbox" style="margin-top: 1em;">
+        {{- range .Pages.ByTitle -}}
+        <li class="article-item" 
+            role="option"
+            data-url="{{ .RelPermalink }}">
+          <span class="article-marker" aria-hidden="true"> </span>
+          <span class="article-meta">
+            <span class="article-word-count" title="Number of posts">{{ len .Pages }} posts</span>
+          </span>
+          <a href="{{ .RelPermalink }}" class="article-title" style="color: var(--link);">
+            {{ .Title }}
+          </a>
+        </li>
+        {{- else }}
+        <li class="article-item" style="color: var(--fg-dim);">
+          No {{ .Title | lower }} found.
+        </li>
+        {{- end }}
+      </ul>
+    </div>
+  </div>
+  
+  {{ partial "modeline.html" (dict 
+    "buffer" (printf "*%s*" (.Title | lower))
+    "mode" "Dired"
+    "readonly" true
+  ) }}
+</section>
+{{ end }}
