@@ -135,6 +135,10 @@ themes/emacs/
 - Keyboard navigation requires JavaScript
 - Graceful degradation for older browsers
 
+## Vibe Coded
+
+This theme was fully vibe coded with [Claude](https://claude.ai) (Anthropic's AI assistant). The entire theme - HTML templates, CSS styling, JavaScript interactions, and documentation - was created through conversational AI-assisted development.
+
 ## Credits
 
 - Color schemes based on [Modus Themes](https://protesilaos.com/emacs/modus-themes) by Protesilaos Stavrou
