@@ -147,7 +147,6 @@
 .article-meta {
   display: flex;
   gap: 1em;
-  color: var(--fg-dim);
   font-size: 0.85rem;
   flex-shrink: 0;
   margin-right: 1em;
@@ -156,21 +155,41 @@
 .article-reading-time {
   width: 4em;
   text-align: right;
+  color: var(--cyan-faint);
 }
 
 .article-word-count {
   width: 4em;
   text-align: right;
+  color: var(--yellow-faint);
 }
 
 .article-date {
   width: 7em;
+  color: var(--blue-faint);
 }
 
 .article-title {
   flex: 1;
   white-space: normal;
   word-wrap: break-word;
+  color: var(--fg-main);
+}
+
+.article-item.selected .article-title {
+  color: var(--magenta);
+}
+
+.article-item.selected .article-reading-time {
+  color: var(--cyan);
+}
+
+.article-item.selected .article-word-count {
+  color: var(--yellow);
+}
+
+.article-item.selected .article-date {
+  color: var(--blue);
 }
 
 /* Tags in list */
