@@ -736,34 +736,12 @@
   }
 
   /**
-   * Handle click on article item
+   * Handle click on article item - single click opens
    */
   function handleArticleClick(e) {
     const item = e.target.closest('.article-item');
     if (!item) return;
 
-    const index = parseInt(item.dataset.index, 10);
-    if (!isNaN(index)) {
-      // Always focus list buffer when clicking in list
-      focusBuffer('list');
-      
-      if (index === selectedIndex && !splitMode) {
-        // Click on selected - open it (only in single buffer mode)
-        openSelectedArticle();
-      } else {
-        // Click on different item - select it
-        updateSelection(index);
-      }
-    }
-  }
-
-  /**
-   * Handle double click to open
-   */
-  function handleArticleDoubleClick(e) {
-    const item = e.target.closest('.article-item');
-    if (!item) return;
-    
     const index = parseInt(item.dataset.index, 10);
     if (!isNaN(index)) {
       focusBuffer('list');
@@ -788,7 +766,6 @@
 
     // Click events
     articleList?.addEventListener('click', handleArticleClick);
-    articleList?.addEventListener('dblclick', handleArticleDoubleClick);
     bufferContent?.addEventListener('click', handleContentClick);
 
     // Help close button
