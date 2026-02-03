@@ -2,6 +2,8 @@
 
 A Hugo theme that transforms your blog into an Emacs-like experience with buffer management, keyboard navigation, and authentic styling.
 
+![Emacs Hugo Theme Screenshot](images/screenshot.png)
+
 ## Features
 
 - **Full-screen buffer view** - Article list and content displayed like Emacs buffers
