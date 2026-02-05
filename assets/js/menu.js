@@ -241,6 +241,15 @@
       });
     });
     
+    // Evil mode toggle button
+    document.querySelectorAll('[data-action="toggle-evil"]').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        window.toggleEvilMode?.();
+        closeAllMenus();
+        e.preventDefault();
+      });
+    });
+    
     // Hamburger menu
     hamburger?.addEventListener('click', toggleMobileMenu);
     

@@ -1,6 +1,7 @@
 /**
  * Keyboard Navigation for Emacs Blog Theme
  * Full-screen buffer switching with split view support
+ * Now with Evil mode (Vim keybindings) support!
  */
 
 (function() {
@@ -13,21 +14,14 @@
   let keySequence = '';
   let sequenceTimeout = null;
   let isScrollingProgrammatically = false; // Flag to prevent scroll handler during keyboard nav
+  let evilMode = false; // Evil mode (Vim keybindings) toggle
   
   // Store the base URL (list page) for history navigation
   const baseUrl = window.location.pathname;
   const baseTitle = document.title;
 
-  // DOM elements
-  const bufferContainer = document.getElementById('buffer-container');
-  const articleList = document.getElementById('article-list');
-  const bufferList = document.getElementById('buffer-list');
-  const bufferContent = document.getElementById('buffer-content');
-  const contentBody = document.getElementById('content-body');
-  const articleContent = document.getElementById('article-content');
-  const postsData = document.getElementById('posts-data');
-  const echoMessage = document.getElementById('echo-message');
-  const helpOverlay = document.getElementById('help-overlay');
+  // DOM elements (initialized in init() after DOM is ready)
+  let bufferContainer, articleList, bufferList, bufferContent, contentBody, articleContent, postsData, echoMessage, helpOverlay;
 
   /**
    * Show message in echo area
@@ -51,12 +45,91 @@
   function updateEchoHint() {
     if (!echoMessage) return;
     
+    const modeLabel = evilMode ? '[Evil] ' : '';
+    
     if (splitMode) {
-      echoMessage.textContent = 'C-x o switch window, C-x 0 close window, ? for help';
+      if (evilMode) {
+        echoMessage.textContent = modeLabel + 'Ctrl-w w switch window, Ctrl-w c close, ? for help';
+      } else {
+        echoMessage.textContent = 'C-x o switch window, C-x 0 close window, ? for help';
+      }
     } else if (focusedBuffer === 'list') {
-      echoMessage.textContent = 'n/p to navigate, RET to open, C-x 3 split, ? for help';
+      if (evilMode) {
+        echoMessage.textContent = modeLabel + 'j/k to navigate, RET/l to open, ? for help';
+      } else {
+        echoMessage.textContent = 'n/p to navigate, RET to open, C-x 3 split, ? for help';
+      }
     } else {
-      echoMessage.textContent = 'n/p for next/prev article, q to go back, ? for help';
+      if (evilMode) {
+        echoMessage.textContent = modeLabel + 'j/k scroll, n/N next/prev article, q to go back';
+      } else {
+        echoMessage.textContent = 'n/p for next/prev article, q to go back, ? for help';
+      }
+    }
+  }
+
+  /**
+   * Update mode toggle button appearance
+   */
+  function updateModeButton() {
+    const modeToggle = document.querySelector('.mode-toggle');
+    if (modeToggle) {
+      const indicator = modeToggle.querySelector('.mode-indicator');
+      const label = modeToggle.querySelector('.mode-label');
+      
+      modeToggle.classList.toggle('evil-active', evilMode);
+      modeToggle.setAttribute('aria-pressed', evilMode);
+      
+      if (indicator) {
+        indicator.textContent = evilMode ? 'V' : 'E';
+      }
+      if (label) {
+        label.textContent = evilMode ? 'Evil' : 'Emacs';
+      }
+    }
+  }
+
+  /**
+   * Toggle Evil mode (Vim keybindings)
+   */
+  function toggleEvilMode() {
+    evilMode = !evilMode;
+    
+    // Update button state and text
+    updateModeButton();
+    
+    // Update help overlay visibility of keybinding sections
+    const helpOverlay = document.getElementById('help-overlay');
+    if (helpOverlay) {
+      helpOverlay.classList.toggle('evil-mode', evilMode);
+    }
+    
+    // Save preference
+    localStorage.setItem('evil-mode', evilMode ? 'true' : 'false');
+    
+    // Show message
+    showMessage(evilMode ? 'Evil mode enabled - Vim keybindings active' : 'Emacs mode enabled - Emacs keybindings active');
+    
+    // Update echo hint
+    updateEchoHint();
+  }
+
+  /**
+   * Initialize Evil mode from saved preference
+   */
+  function initEvilMode() {
+    const saved = localStorage.getItem('evil-mode');
+    if (saved === 'true') {
+      evilMode = true;
+    }
+    
+    // Update button to reflect current state
+    updateModeButton();
+    
+    // Update help overlay
+    const helpOverlay = document.getElementById('help-overlay');
+    if (helpOverlay) {
+      helpOverlay.classList.toggle('evil-mode', evilMode);
     }
   }
 
@@ -522,7 +595,7 @@
       }
     }
     
-    // g prefix sequences
+    // g prefix sequences (works in both modes)
     keySequence += key;
     
     if (sequenceTimeout) {
@@ -552,6 +625,82 @@
     }, 1000);
 
     showMessage(keySequence + '-');
+    return false;
+  }
+
+  /**
+   * Handle Evil mode window management sequences (Ctrl-w prefix)
+   */
+  function handleEvilWindowSequence(key) {
+    if (keySequence === 'C-w') {
+      switch (key) {
+        case 'w':
+        case 'W':
+          // Ctrl-w w - switch to other window
+          otherWindow();
+          keySequence = '';
+          return true;
+        case 'c':
+        case 'C':
+          // Ctrl-w c - close current window
+          closeCurrentWindow();
+          keySequence = '';
+          return true;
+        case 'v':
+        case 'V':
+          // Ctrl-w v - split vertically (side by side in Vim terms)
+          splitHorizontal();
+          keySequence = '';
+          return true;
+        case 's':
+        case 'S':
+          // Ctrl-w s - split horizontally (stacked in Vim terms)
+          splitVertical();
+          keySequence = '';
+          return true;
+        case 'o':
+        case 'O':
+          // Ctrl-w o - close other windows (only one)
+          if (splitMode) {
+            setSplitMode(null);
+            showMessage('Deleted other windows');
+          } else {
+            showMessage('Only one window');
+          }
+          keySequence = '';
+          return true;
+        case 'h':
+        case 'H':
+        case 'ArrowLeft':
+          // Ctrl-w h - focus left window (list)
+          focusBuffer('list');
+          showMessage('Switched to *posts*');
+          keySequence = '';
+          return true;
+        case 'l':
+        case 'L':
+        case 'ArrowRight':
+          // Ctrl-w l - focus right window (content)
+          focusBuffer('content');
+          showMessage('Switched to article');
+          keySequence = '';
+          return true;
+        case 'j':
+        case 'J':
+        case 'ArrowDown':
+        case 'k':
+        case 'K':
+        case 'ArrowUp':
+          // Ctrl-w j/k - in vertical split, switch windows
+          otherWindow();
+          keySequence = '';
+          return true;
+        default:
+          keySequence = '';
+          showMessage('Ctrl-w ' + key + ' is undefined');
+          return false;
+      }
+    }
     return false;
   }
 
@@ -590,7 +739,7 @@
     const meta = e.metaKey;
     const shift = e.shiftKey;
 
-    // Handle C-x prefix sequences
+    // Handle C-x prefix sequences (Emacs)
     if (keySequence === 'C-x') {
       if (handleKeySequence(key)) {
         e.preventDefault();
@@ -598,7 +747,15 @@
       }
     }
 
-    // Key sequences (g prefix)
+    // Handle Ctrl-w prefix sequences (Evil mode window management)
+    if (evilMode && keySequence === 'C-w') {
+      if (handleEvilWindowSequence(key)) {
+        e.preventDefault();
+        return;
+      }
+    }
+
+    // Key sequences (g prefix) - works in both modes
     if (keySequence || key === 'g') {
       if (handleKeySequence(key.toLowerCase())) {
         e.preventDefault();
@@ -607,10 +764,18 @@
       if (keySequence) return;
     }
 
-    // C-x prefix
+    // C-x prefix (Emacs)
     if (ctrl && key === 'x') {
       keySequence = 'C-x';
       showMessage('C-x-');
+      e.preventDefault();
+      return;
+    }
+
+    // Ctrl-w prefix (Evil mode window management)
+    if (evilMode && ctrl && key === 'w') {
+      keySequence = 'C-w';
+      showMessage('Ctrl-w-');
       e.preventDefault();
       return;
     }
@@ -628,21 +793,80 @@
 
     // === LIST BUFFER ===
     if (focusedBuffer === 'list') {
+      // Evil mode (Vim) keybindings
+      if (evilMode) {
+        switch (key) {
+          case 'j':
+          case 'ArrowDown':
+            updateSelection(selectedIndex + 1);
+            e.preventDefault();
+            return;
+          case 'k':
+          case 'ArrowUp':
+            updateSelection(selectedIndex - 1);
+            e.preventDefault();
+            return;
+          case 'Enter':
+          case 'l':
+            openSelectedArticle();
+            e.preventDefault();
+            return;
+          case 'h':
+            // h goes back in evil mode
+            goBack();
+            e.preventDefault();
+            return;
+          case ' ':
+            // Space in list - open article
+            if (!splitMode) {
+              openSelectedArticle();
+            } else {
+              scrollContent('down');
+            }
+            e.preventDefault();
+            return;
+          case 'G':
+            // G - go to end (Vim style)
+            if (shift) {
+              updateSelection(getArticleItems().length - 1);
+              e.preventDefault();
+            }
+            return;
+          case 'H':
+            // H - high (top of screen) - go to beginning
+            updateSelection(0);
+            e.preventDefault();
+            return;
+          case 'L':
+            // L - low (bottom) - go to end
+            updateSelection(getArticleItems().length - 1);
+            e.preventDefault();
+            return;
+        }
+      }
+      
+      // Emacs keybindings (default)
       switch (key) {
         case 'n':
         case 'ArrowDown':
-          updateSelection(selectedIndex + 1);
-          e.preventDefault();
+          if (!evilMode) {
+            updateSelection(selectedIndex + 1);
+            e.preventDefault();
+          }
           break;
         case 'p':
         case 'ArrowUp':
-          updateSelection(selectedIndex - 1);
-          e.preventDefault();
+          if (!evilMode) {
+            updateSelection(selectedIndex - 1);
+            e.preventDefault();
+          }
           break;
         case 'Enter':
         case 'o':
-          openSelectedArticle();
-          e.preventDefault();
+          if (!evilMode || key === 'Enter') {
+            openSelectedArticle();
+            e.preventDefault();
+          }
           break;
         case ' ':
           // Space in list - open article
@@ -655,22 +879,110 @@
           e.preventDefault();
           break;
         case '<':
-          updateSelection(0);
-          e.preventDefault();
+          if (!evilMode) {
+            updateSelection(0);
+            e.preventDefault();
+          }
           break;
         case '>':
-          updateSelection(getArticleItems().length - 1);
-          e.preventDefault();
+          if (!evilMode) {
+            updateSelection(getArticleItems().length - 1);
+            e.preventDefault();
+          }
           break;
       }
     }
 
     // === CONTENT BUFFER ===
     if (focusedBuffer === 'content') {
+      // Evil mode (Vim) keybindings for content
+      if (evilMode) {
+        switch (key) {
+          case 'j':
+          case 'ArrowDown':
+            // j - scroll down
+            contentBody?.scrollBy({ top: 150, behavior: 'smooth' });
+            e.preventDefault();
+            return;
+          case 'k':
+          case 'ArrowUp':
+            // k - scroll up
+            contentBody?.scrollBy({ top: -150, behavior: 'smooth' });
+            e.preventDefault();
+            return;
+          case 'n':
+            // n - next article (Vim: next search result, we use for next article)
+            if (!ctrl) {
+              navigateArticle(1);
+              e.preventDefault();
+            }
+            return;
+          case 'N':
+            // N - previous article (Vim: previous search result)
+            navigateArticle(-1);
+            e.preventDefault();
+            return;
+          case 'h':
+            // h - go back to list
+            goBack();
+            e.preventDefault();
+            return;
+          case 'l':
+            // l - in content, do nothing (or could scroll right if we had horizontal scroll)
+            return;
+          case 'G':
+            // G - go to end of buffer
+            if (contentBody) contentBody.scrollTop = contentBody.scrollHeight;
+            e.preventDefault();
+            return;
+          case 'd':
+            // Ctrl-d - half page down
+            if (ctrl) {
+              const halfPage = contentBody ? contentBody.clientHeight / 2 : 300;
+              contentBody?.scrollBy({ top: halfPage, behavior: 'smooth' });
+              e.preventDefault();
+            }
+            return;
+          case 'u':
+            // Ctrl-u - half page up
+            if (ctrl) {
+              const halfPage = contentBody ? contentBody.clientHeight / 2 : 300;
+              contentBody?.scrollBy({ top: -halfPage, behavior: 'smooth' });
+              e.preventDefault();
+            }
+            return;
+          case 'f':
+            // Ctrl-f - full page down
+            if (ctrl) {
+              scrollContent('down');
+              e.preventDefault();
+            }
+            return;
+          case 'b':
+            // Ctrl-b - full page up
+            if (ctrl) {
+              scrollContent('up');
+              e.preventDefault();
+            }
+            return;
+          case ' ':
+            // Space - page down
+            scrollContent(shift ? 'up' : 'down');
+            e.preventDefault();
+            return;
+          case 'q':
+            // q - go back to list
+            goBack();
+            e.preventDefault();
+            return;
+        }
+      }
+      
+      // Emacs keybindings (default)
       switch (key) {
         case 'n':
           // n - scroll down or next article (single buffer mode without split)
-          if (!ctrl) {
+          if (!ctrl && !evilMode) {
             if (splitMode) {
               // In split mode, n scrolls content
               contentBody?.scrollBy({ top: 150, behavior: 'smooth' });
@@ -683,7 +995,7 @@
           break;
         case 'p':
           // p - scroll up or previous article (single buffer mode without split)
-          if (!ctrl) {
+          if (!ctrl && !evilMode) {
             if (splitMode) {
               // In split mode, p scrolls content
               contentBody?.scrollBy({ top: -150, behavior: 'smooth' });
@@ -696,13 +1008,17 @@
           break;
         case 'ArrowDown':
           // Arrow down - scroll
-          contentBody?.scrollBy({ top: 150, behavior: 'smooth' });
-          e.preventDefault();
+          if (!evilMode) {
+            contentBody?.scrollBy({ top: 150, behavior: 'smooth' });
+            e.preventDefault();
+          }
           break;
         case 'ArrowUp':
           // Arrow up - scroll
-          contentBody?.scrollBy({ top: -150, behavior: 'smooth' });
-          e.preventDefault();
+          if (!evilMode) {
+            contentBody?.scrollBy({ top: -150, behavior: 'smooth' });
+            e.preventDefault();
+          }
           break;
         case 'PageDown':
           // Page Down - scroll page
@@ -716,33 +1032,43 @@
           break;
         case ' ':
           // Space - page down, Shift+Space - page up
-          scrollContent(shift ? 'up' : 'down');
-          e.preventDefault();
+          if (!evilMode) {
+            scrollContent(shift ? 'up' : 'down');
+            e.preventDefault();
+          }
           break;
         case 'v':
           // C-v page down, M-v page up
-          if (ctrl) {
-            scrollContent('down');
-            e.preventDefault();
-          } else if (meta || e.altKey) {
-            scrollContent('up');
-            e.preventDefault();
+          if (!evilMode) {
+            if (ctrl) {
+              scrollContent('down');
+              e.preventDefault();
+            } else if (meta || e.altKey) {
+              scrollContent('up');
+              e.preventDefault();
+            }
           }
           break;
         case '<':
           // Beginning of buffer
-          if (contentBody) contentBody.scrollTop = 0;
-          e.preventDefault();
+          if (!evilMode) {
+            if (contentBody) contentBody.scrollTop = 0;
+            e.preventDefault();
+          }
           break;
         case '>':
           // End of buffer
-          if (contentBody) contentBody.scrollTop = contentBody.scrollHeight;
-          e.preventDefault();
+          if (!evilMode) {
+            if (contentBody) contentBody.scrollTop = contentBody.scrollHeight;
+            e.preventDefault();
+          }
           break;
         case 'q':
           // q - go back to list
-          goBack();
-          e.preventDefault();
+          if (!evilMode) {
+            goBack();
+            e.preventDefault();
+          }
           break;
       }
     }
@@ -872,6 +1198,17 @@
    * Initialize
    */
   function init() {
+    // Initialize DOM element references
+    bufferContainer = document.getElementById('buffer-container');
+    articleList = document.getElementById('article-list');
+    bufferList = document.getElementById('buffer-list');
+    bufferContent = document.getElementById('buffer-content');
+    contentBody = document.getElementById('content-body');
+    articleContent = document.getElementById('article-content');
+    postsData = document.getElementById('posts-data');
+    echoMessage = document.getElementById('echo-message');
+    helpOverlay = document.getElementById('help-overlay');
+
     // Keyboard events
     document.addEventListener('keydown', handleKeydown);
 
@@ -890,6 +1227,9 @@
 
     // Help close button
     document.getElementById('help-close')?.addEventListener('click', toggleHelp);
+    
+    // Initialize Evil mode from saved preference
+    initEvilMode();
 
     // Initialize selection and modeline
     updateListModeline();
@@ -920,6 +1260,11 @@
     focusBuffer,
     setSplitMode,
     updateSelection,
-    showMessage
+    showMessage,
+    toggleEvilMode,
+    isEvilMode: () => evilMode
   };
+  
+  // Also expose toggleEvilMode globally for menu.js
+  window.toggleEvilMode = toggleEvilMode;
 })();

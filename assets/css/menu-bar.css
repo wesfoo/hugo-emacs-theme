@@ -172,6 +172,54 @@
   margin-right: 0.3em;
 }
 
+/* Mode toggle button - Shows current keybinding mode */
+.mode-toggle {
+  display: flex;
+  align-items: center;
+  padding: 0.3em 0.6em;
+  margin-right: 0.5em;
+  background-color: var(--blue);
+  border: 1px solid var(--blue-warmer);
+  border-radius: 3px;
+  color: #ffffff;
+  font-family: inherit;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.mode-toggle:hover {
+  background-color: var(--blue-warmer);
+  border-color: var(--blue);
+}
+
+.mode-toggle .mode-indicator {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.2em;
+  height: 1.2em;
+  margin-right: 0.3em;
+  font-weight: bold;
+  font-size: 0.85em;
+  border-radius: 2px;
+}
+
+.mode-toggle .mode-label {
+  font-size: 0.9em;
+}
+
+/* Evil mode ACTIVE state - RED */
+.mode-toggle.evil-active {
+  background-color: var(--red);
+  border-color: var(--red-warmer);
+}
+
+.mode-toggle.evil-active:hover {
+  background-color: var(--red-warmer);
+  border-color: var(--red);
+}
+
 /* Site title in menu bar */
 .menu-bar-title {
   color: var(--fg-dim);

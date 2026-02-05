@@ -261,3 +261,42 @@
 .help-close:hover {
   background-color: var(--bg-hover);
 }
+
+/* ============================================
+   EVIL MODE HELP TOGGLE
+   ============================================ */
+
+/* Evil mode indicator in help */
+.help-mode-indicator {
+  background-color: var(--red);
+  color: #ffffff;
+  padding: 0.3em 0.8em;
+  border-radius: 3px;
+  font-weight: bold;
+  font-size: 0.9em;
+  margin-bottom: 1em;
+  display: inline-block;
+}
+
+/* By default, show Emacs bindings, hide Evil bindings */
+.help-emacs-bindings {
+  display: block;
+}
+
+.help-evil-bindings {
+  display: none;
+}
+
+/* When evil-mode class is on the help overlay, toggle visibility */
+.help-overlay.evil-mode .help-emacs-bindings {
+  display: none;
+}
+
+.help-overlay.evil-mode .help-evil-bindings {
+  display: block;
+}
+
+/* Common bindings are always shown */
+.help-common {
+  display: block;
+}

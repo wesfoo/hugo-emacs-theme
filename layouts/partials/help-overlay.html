@@ -2,83 +2,180 @@
   <div class="help-content">
     <h2 id="help-title">Keyboard Shortcuts</h2>
     
-    <div class="help-section">
-      <h3>Navigation (List)</h3>
-      <div class="help-keybinding">
-        <kbd>n</kbd> / <kbd>&#8595;</kbd>
-        <span class="desc">Next article</span>
+    {{/* Emacs keybindings - shown when Evil mode is off */}}
+    <div class="help-emacs-bindings">
+      <div class="help-section">
+        <h3>Navigation (List)</h3>
+        <div class="help-keybinding">
+          <kbd>n</kbd> / <kbd>&#8595;</kbd>
+          <span class="desc">Next article</span>
+        </div>
+        <div class="help-keybinding">
+          <kbd>p</kbd> / <kbd>&#8593;</kbd>
+          <span class="desc">Previous article</span>
+        </div>
+        <div class="help-keybinding">
+          <kbd>RET</kbd> / <kbd>o</kbd>
+          <span class="desc">Open article</span>
+        </div>
+        <div class="help-keybinding">
+          <kbd>q</kbd>
+          <span class="desc">Go back to list</span>
+        </div>
+        <div class="help-keybinding">
+          <kbd>&lt;</kbd>
+          <span class="desc">Beginning of list</span>
+        </div>
+        <div class="help-keybinding">
+          <kbd>&gt;</kbd>
+          <span class="desc">End of list</span>
+        </div>
       </div>
-      <div class="help-keybinding">
-        <kbd>p</kbd> / <kbd>&#8593;</kbd>
-        <span class="desc">Previous article</span>
+      
+      <div class="help-section">
+        <h3>Windows</h3>
+        <div class="help-keybinding">
+          <kbd>C-x 3</kbd>
+          <span class="desc">Split horizontal (side by side)</span>
+        </div>
+        <div class="help-keybinding">
+          <kbd>C-x 2</kbd>
+          <span class="desc">Split vertical (stacked)</span>
+        </div>
+        <div class="help-keybinding">
+          <kbd>C-x 0</kbd>
+          <span class="desc">Close current window</span>
+        </div>
+        <div class="help-keybinding">
+          <kbd>C-x 1</kbd>
+          <span class="desc">Close other windows</span>
+        </div>
+        <div class="help-keybinding">
+          <kbd>C-x o</kbd> / <kbd>Tab</kbd>
+          <span class="desc">Switch to other window</span>
+        </div>
+        <div class="help-keybinding">
+          <kbd>C-x b</kbd>
+          <span class="desc">Switch to list buffer</span>
+        </div>
       </div>
-      <div class="help-keybinding">
-        <kbd>RET</kbd> / <kbd>o</kbd>
-        <span class="desc">Open article</span>
-      </div>
-      <div class="help-keybinding">
-        <kbd>q</kbd>
-        <span class="desc">Go back to list</span>
-      </div>
-      <div class="help-keybinding">
-        <kbd>&lt;</kbd>
-        <span class="desc">Beginning of list</span>
-      </div>
-      <div class="help-keybinding">
-        <kbd>&gt;</kbd>
-        <span class="desc">End of list</span>
+      
+      <div class="help-section">
+        <h3>Scrolling (Content)</h3>
+        <div class="help-keybinding">
+          <kbd>n</kbd> / <kbd>p</kbd>
+          <span class="desc">Scroll down/up (split) or next/prev article (single)</span>
+        </div>
+        <div class="help-keybinding">
+          <kbd>&#8593;</kbd> / <kbd>&#8595;</kbd>
+          <span class="desc">Scroll up/down</span>
+        </div>
+        <div class="help-keybinding">
+          <kbd>PgUp</kbd> / <kbd>PgDn</kbd>
+          <span class="desc">Page up/down</span>
+        </div>
+        <div class="help-keybinding">
+          <kbd>SPC</kbd> / <kbd>S-SPC</kbd>
+          <span class="desc">Page down/up</span>
+        </div>
+        <div class="help-keybinding">
+          <kbd>C-v</kbd> / <kbd>M-v</kbd>
+          <span class="desc">Page down/up (Emacs style)</span>
+        </div>
       </div>
     </div>
     
-    <div class="help-section">
-      <h3>Windows</h3>
-      <div class="help-keybinding">
-        <kbd>C-x 3</kbd>
-        <span class="desc">Split horizontal (side by side)</span>
+    {{/* Evil/Vim keybindings - shown when Evil mode is on */}}
+    <div class="help-evil-bindings">
+      <div class="help-mode-indicator">Evil Mode (Vim keybindings)</div>
+      
+      <div class="help-section">
+        <h3>Navigation (List)</h3>
+        <div class="help-keybinding">
+          <kbd>j</kbd> / <kbd>&#8595;</kbd>
+          <span class="desc">Next article</span>
+        </div>
+        <div class="help-keybinding">
+          <kbd>k</kbd> / <kbd>&#8593;</kbd>
+          <span class="desc">Previous article</span>
+        </div>
+        <div class="help-keybinding">
+          <kbd>RET</kbd> / <kbd>l</kbd>
+          <span class="desc">Open article</span>
+        </div>
+        <div class="help-keybinding">
+          <kbd>h</kbd> / <kbd>q</kbd>
+          <span class="desc">Go back to list</span>
+        </div>
+        <div class="help-keybinding">
+          <kbd>gg</kbd> / <kbd>H</kbd>
+          <span class="desc">Beginning of list</span>
+        </div>
+        <div class="help-keybinding">
+          <kbd>G</kbd> / <kbd>L</kbd>
+          <span class="desc">End of list</span>
+        </div>
       </div>
-      <div class="help-keybinding">
-        <kbd>C-x 2</kbd>
-        <span class="desc">Split vertical (stacked)</span>
+      
+      <div class="help-section">
+        <h3>Windows</h3>
+        <div class="help-keybinding">
+          <kbd>Ctrl-w v</kbd>
+          <span class="desc">Split vertical (side by side)</span>
+        </div>
+        <div class="help-keybinding">
+          <kbd>Ctrl-w s</kbd>
+          <span class="desc">Split horizontal (stacked)</span>
+        </div>
+        <div class="help-keybinding">
+          <kbd>Ctrl-w c</kbd>
+          <span class="desc">Close current window</span>
+        </div>
+        <div class="help-keybinding">
+          <kbd>Ctrl-w o</kbd>
+          <span class="desc">Close other windows</span>
+        </div>
+        <div class="help-keybinding">
+          <kbd>Ctrl-w w</kbd> / <kbd>Tab</kbd>
+          <span class="desc">Switch to other window</span>
+        </div>
+        <div class="help-keybinding">
+          <kbd>Ctrl-w h/j/k/l</kbd>
+          <span class="desc">Focus window by direction</span>
+        </div>
       </div>
-      <div class="help-keybinding">
-        <kbd>C-x 0</kbd>
-        <span class="desc">Close current window</span>
-      </div>
-      <div class="help-keybinding">
-        <kbd>C-x 1</kbd>
-        <span class="desc">Close other windows</span>
-      </div>
-      <div class="help-keybinding">
-        <kbd>C-x o</kbd> / <kbd>Tab</kbd>
-        <span class="desc">Switch to other window</span>
+      
+      <div class="help-section">
+        <h3>Scrolling (Content)</h3>
+        <div class="help-keybinding">
+          <kbd>j</kbd> / <kbd>k</kbd>
+          <span class="desc">Scroll down/up</span>
+        </div>
+        <div class="help-keybinding">
+          <kbd>n</kbd> / <kbd>N</kbd>
+          <span class="desc">Next/previous article</span>
+        </div>
+        <div class="help-keybinding">
+          <kbd>Ctrl-d</kbd> / <kbd>Ctrl-u</kbd>
+          <span class="desc">Half page down/up</span>
+        </div>
+        <div class="help-keybinding">
+          <kbd>Ctrl-f</kbd> / <kbd>Ctrl-b</kbd>
+          <span class="desc">Full page down/up</span>
+        </div>
+        <div class="help-keybinding">
+          <kbd>gg</kbd> / <kbd>G</kbd>
+          <span class="desc">Beginning/end of buffer</span>
+        </div>
+        <div class="help-keybinding">
+          <kbd>h</kbd> / <kbd>q</kbd>
+          <span class="desc">Go back to list</span>
+        </div>
       </div>
     </div>
     
-    <div class="help-section">
-      <h3>Scrolling (Content)</h3>
-      <div class="help-keybinding">
-        <kbd>n</kbd> / <kbd>p</kbd>
-        <span class="desc">Scroll down/up (split) or next/prev article (single)</span>
-      </div>
-      <div class="help-keybinding">
-        <kbd>&#8593;</kbd> / <kbd>&#8595;</kbd>
-        <span class="desc">Scroll up/down</span>
-      </div>
-      <div class="help-keybinding">
-        <kbd>PgUp</kbd> / <kbd>PgDn</kbd>
-        <span class="desc">Page up/down</span>
-      </div>
-      <div class="help-keybinding">
-        <kbd>SPC</kbd> / <kbd>S-SPC</kbd>
-        <span class="desc">Page down/up</span>
-      </div>
-      <div class="help-keybinding">
-        <kbd>C-v</kbd> / <kbd>M-v</kbd>
-        <span class="desc">Page down/up (Emacs style)</span>
-      </div>
-    </div>
-    
-    <div class="help-section">
+    {{/* Common keybindings - shown in both modes */}}
+    <div class="help-section help-common">
       <h3>View</h3>
       <div class="help-keybinding">
         <kbd>t</kbd>
@@ -87,6 +184,10 @@
       <div class="help-keybinding">
         <kbd>+</kbd> / <kbd>-</kbd>
         <span class="desc">Increase/decrease font size</span>
+      </div>
+      <div class="help-keybinding">
+        <kbd>gg</kbd> / <kbd>gh</kbd> / <kbd>gp</kbd>
+        <span class="desc">Go to top / home / posts</span>
       </div>
     </div>
     

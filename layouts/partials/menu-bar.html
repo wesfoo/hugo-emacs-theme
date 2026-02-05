@@ -105,6 +105,11 @@
   <div class="menu-bar-right">
     <span class="menu-bar-title">{{ .Site.Title }}</span>
     
+    <button class="mode-toggle" aria-label="Toggle between Emacs and Evil mode" data-action="toggle-evil">
+      <span class="mode-indicator" aria-hidden="true">E</span>
+      <span class="mode-label">Emacs</span>
+    </button>
+    
     <button class="theme-toggle" aria-label="Toggle color theme" data-action="toggle-theme">
       <span class="icon" aria-hidden="true">
         <span class="theme-icon-dark">&#9790;</span>
